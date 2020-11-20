@@ -1,7 +1,12 @@
 ---
 layout: page
-title: Math
+title: Math | jfb
+permalink: /math/
+pagination:
+  enabled: true
+  tag: math
 ---
+
 <ul class="posts">
   {% for post in site.posts %}
 
