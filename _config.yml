@@ -1,14 +1,14 @@
 # Site Build Settings
 
 # Jekyll-paginate-v2 configuration
-#  pagination:
-#   enabled: true
-#   per_page: 5
-#   permalink: '/page/:num/'
-#   title: ':title - page :num of :max'
-#   limit: 0
-#   sort_field: 'date'
-#   sort_reverse: true
+pagination:
+ enabled: true
+ per_page: 5
+ permalink: '/page/:num/'
+# title: ':title - page :num of :max'
+ limit: 0
+ sort_field: 'date'
+ sort_reverse: true
 
 # jekyll-paginate configuration
 paginate:            5
@@ -22,7 +22,7 @@ plugins:             [jekyll-paginate, jekyll-sitemap, jekyll-feed, jekyll-seo-t
 # Customise atom feed settings (this is where Jekyll-Feed gets configuration information)
 title:		           'Jasper Barr'
 description:	       'Data specialist'
-author:              'Jasper Barr'
+#author:              'Jasper Barr'
 
 # RSS 2.0 can be used instead of Atom by uncommenting following two lines
 #feed:
