@@ -4,7 +4,7 @@ title: "Dijkstra Maps"
 author: "Jasper Barr"
 categories: journal
 tags: documentation
-image: controller.png
+image: 2d_game.png
 ---
 
 TBD
