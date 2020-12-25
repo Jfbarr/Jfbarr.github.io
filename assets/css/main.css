@@ -130,9 +130,7 @@ hr {
 }
 
 .thumbnail-container img{
-  /*margin-top: -11.5%;*/
-  /*margin-bottom: -11.5%;*/
-  object-fit: cover
+  object-fit: cover;
 }
 
 /*
