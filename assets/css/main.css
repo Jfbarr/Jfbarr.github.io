@@ -130,9 +130,9 @@ hr {
 }
 
 .thumbnail-container img{
-  object-fit: cover;
+  margin-top: -11.5%;
+  margin-bottom: -11.5%;
 }
-
 /*
   Post
 */
