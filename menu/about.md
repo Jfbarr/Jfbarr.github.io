@@ -1,6 +1,6 @@
 ---
 layout: page
-title: jfb
+title: Welcome!
 ---
 
 This is a placeholder.
