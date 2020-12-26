@@ -130,8 +130,10 @@ hr {
 }
 
 .thumbnail-container img{
-  margin-top: -11.5%;
-  margin-bottom: -11.5%;
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  object-position: center;
 }
 /*
   Post
