@@ -3,5 +3,4 @@ layout: page
 title: jfb
 ---
 
-
-TBD
+This is a placeholder.
