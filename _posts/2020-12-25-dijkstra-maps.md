@@ -7,21 +7,21 @@ tags: code
 image: 2d_game.png
 ---
 
-Recently I participated in a hackerthon run by CoderOne, in which the aim was to build a bot to play a custom Bomberman-like game. The aim of the game was rather simple: place bombs to destroy blocks for points, and avoid getting hit. In essence, there were two problems to solve: pathfinding, and deciding when to place bombs. To solve the problem of deciding where to move on the map, I took inspiration from an [article](http://www.roguebasin.com/index.php?title=The_Incredible_Power_of_Dijkstra_Maps) written by the developer of [Brogue](https://en.wikipedia.org/wiki/Brogue_(video_game)), Brian Walker. Brogue utilises _Dijkstra maps_ for enemy pathfinding, otherwise known as _potential flow_ models elsewhere. In the following, I will provide an overview of how to construct and use Dijkstra maps, an overview of my bots logic, and concluding thoughts from the competition. 
+Recently I participated in a hackerthon run by CoderOne, in which the aim was to build an autonomous agent to play a custom Bomberman-like game. The aim of the game was rather simple: place bombs to destroy blocks for points, and avoid getting hit. In essence, there were two problems to solve: pathfinding, and deciding when to place bombs. To solve the problem of deciding where to move on the map, I took inspiration from an [article](http://www.roguebasin.com/index.php?title=The_Incredible_Power_of_Dijkstra_Maps) written by the developer of [Brogue](https://en.wikipedia.org/wiki/Brogue_(video_game)), Brian Walker. Brogue utilises _Dijkstra maps_ for enemy pathfinding, otherwise known as _potential flow_ models elsewhere. In the following, I will provide an overview of how to construct and use Dijkstra maps, an overview of my bots logic, and concluding thoughts from the competition. 
 
 
 # What are Dijkstra maps?
 
-To populate a Dijkstra map, the following algorithm is applied:
+A Dijkstra map is essentially a heightmap that our agent will navigate by moving to the adjacent tile with the lowest height. To create a Dijkstra map, we use the following algorithm:
 
 1. Set each grid cell to a default value of 100
 2. Given a set of goals, set the value of each goal to 0
 3. For each cell `c` in the grid:
-    - If there is an adjacent cell `c_a` with a difference greater than 1, set `c= c_a + 1`
-    - Else do nothing
-4. Repeat 1-3 until no changes are recorded
+    - If there is an adjacent cell `c_a` with a difference greater than 1, set `c` equal to `c_a + 1`
+    - Otherwise, do nothing
+4. Repeat steps 1-3 until no changes are recorded
 
-The end result will be a gridmap with 0s at our goal locations, and increasing values as we move away from the goal. For example, a 5x5 grid with a goal at the center would return:
+The output will be a grid with 0s at our goal locations, and increasing values as we move away from goals. As it happens, the value of a cell is the \\( L^1 \\) distance to the nearest goal. For example, a 5x5 grid with a goal at the center would return:
 
 ```
 43234
@@ -41,9 +41,9 @@ The same grid with goals at each corner would look like:
 01210
 ```
 
-To navigate a Dijkstra map, our agent decides to move to the lowest adjacent value. If the lowest value is the current position, then the agent will remain in the same location. If there are multiple options, the agent randomly chooses between them. In this way, the pathfinding problem has been reduced to "rolling downhill". Note that the default value of 0 can be replaced with any other chosen value. Negative goal values will have the agent seek out the goal from further away.
+To navigate a Dijkstra map, our agent decides to move to the lowest adjacent value. If the lowest value is the current position, then the agent will remain in the same location. If there are multiple options, the agent randomly chooses between them. Note that the default value of 0 can be replaced with any other chosen value. Negative goal values will have the agent seek out goals from further away.
 
-A key observation is in the second example, an agent placed at the centre can navigate to any of the four goals. This demonstrates that the agent already has some capacity to decide between different goals (even if our decision process is random at this point). 
+A key observation from the second exmaple is that an agent placed at the centre can navigate to any of the four goals. This demonstrates that the agent already has some capacity to decide between different goals (even if our decision process is random at this point). 
 
 ## Combining maps
 Given two Dijkstra maps `D_1` and `D_2`, we can define the sum elemntwise by `D_3[i][j] = D_1[i][j] + D_2[i][j]`. Taking our previous examples, this yields
