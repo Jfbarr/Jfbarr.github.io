@@ -72,6 +72,17 @@ Our agent relies on the following logic to decide it's action for each turn.
     * If the action returned is to do nothing, the agent checks if it should place a bomb
     * If the action returned would move the agent into the opponent, the agent does nothing
 
-## Dijkstra map generation
-The maps that we generate are:
+## Used maps
+The maps that we generate are the following:
 
+1. Bomb Dijkstra - Used to make our agent flee from bombs
+2. Reward Dijkstra - This allows our agent to know where it should place bombs
+3. Safe bomb Dijkstra - Rather than fleeing, this map gives our agent an aversion to tiles within the explosion radius of a bomb
+4. High timer bomb Dijkstra - This is the same map as the Safe bomb map, except we exclude bombs that won't explode in the near future
+5. Ammo Dijkstra - This allows our agent to seek treasure and ammo on the map
+6. Flee Dijkstra - This allows our agent to flee from the opposing player in later stages of the game
+7. Centre Dijkstra - This map keeps our agent near the centre of the map in later stages of the game
+
+# Conclusions
+
+Although our agent performed well during test matches, we didn't make it into the quarter finals. The two main reasons for this would be the lack of performance on competition hardware, and the lack of functionality around hunting other players (and avoiding being hunted ourselves). The first point was an unfortunate result of the hardware used to develop our agent being a good deal more powerful than the cloud resources used to run the competition. As a result, our agent suffers a fairly large delay of 3 turns to make a single move. The second issue could have been avoided with better foresight, and a larger sample size of test matches with opposing teams to observe the main strategies that were in play.
