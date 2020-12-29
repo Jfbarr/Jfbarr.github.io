@@ -21,7 +21,7 @@ plugins:             [jekyll-paginate, jekyll-sitemap, jekyll-feed, jekyll-seo-t
 
 # Customise atom feed settings (this is where Jekyll-Feed gets configuration information)
 title:		           'Jasper Barr'
-description:	       'PhD Student | Data specialist'
+description:	       'PhD student | Data specialist'
 #author:              'Jasper Barr'
 
 # RSS 2.0 can be used instead of Atom by uncommenting following two lines
