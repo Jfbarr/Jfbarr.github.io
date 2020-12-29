@@ -21,7 +21,7 @@ A Dijkstra map is essentially a heightmap that our agent will navigate by moving
     - Otherwise, do nothing
 4. Repeat steps 1-3 until no changes are recorded
 
-The output will be a grid with 0s at our goal locations, and increasing values as we move away from goals. As it happens, the value of a cell is the \\( L^1 \\) distance to the nearest goal. For example, a 5x5 grid with a goal at the center would return:
+The output will be a grid with 0s at our goal locations, and increasing values as we move away from goals. As it happens, the value of a cell is the $$ L^1 $$ distance to the nearest goal. For example, a 5x5 grid with a goal at the center would return:
 
 ```
 43234
