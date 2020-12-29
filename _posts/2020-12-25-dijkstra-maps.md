@@ -2,13 +2,15 @@
 layout: post
 title: "Dijkstra Maps"
 author: "Jasper Barr"
-categories: journal
-tags: documentation
+categories: article
+tags: code
 image: 2d_game.png
 ---
 
+Recently I participated in a hackerthon run by CoderOne, in which the aim was to build a bot to play a custom Bomberman-like game. The aim of the game was rather simple: place bombs to destroy blocks for points, and avoid getting hit. In essence, there were two problems to solve: pathfinding, and deciding when to place bombs. To solve the problem of deciding where to move on the map, I took inspiration from an [article](http://www.roguebasin.com/index.php?title=The_Incredible_Power_of_Dijkstra_Maps) written by the developer of [Brogue](https://en.wikipedia.org/wiki/Brogue_(video_game)), Brian Walker. Brogue utilises _Dijkstra maps_ for enemy pathfinding, otherwise known as _potential flow_ models elsewhere. In the following, I will provide an overview of how to construct and use Dijkstra maps, an overview of my bots logic, and concluding thoughts from the competition. 
 
-# Dijkstra maps
+
+# What are Dijkstra maps?
 
 To populate a Dijkstra map, the following algorithm is applied:
 
@@ -71,42 +73,5 @@ Our agent relies on the following logic to decide it's action for each turn.
     * If the action returned would move the agent into the opponent, the agent does nothing
 
 ## Dijkstra map generation
-The following functions are used to generate the maps in step 4:
+The maps that we generate are:
 
-### generate_reward_map
-This map has the goals set to be the tiles on the map that will yield points if a bomb were to be placed there. The function takes into account that explosions can't travel through walls, and the health of blocks. If there are less than 6 blocks remaining on the map, only tiles one block away will have goal tiles set.
-
-### generate_bomb_flee_dijkstra
-
-This map is used to give our agent a general aversion to being near bombs. Using just this map, the agent would try and flee from all bombs on the map.
-
-If we were to simply set the positions of bombs as goals and multiply the map by a negative coefficient, our agent would simply pathfind into corners of rooms. By taking the resulting map, multiplying it by a number in the vicinity of -1.2 and passing it through the algorithm again we achieve a map with smarter fleeing behaviour. Passing the map through the algorithm again essentially places goals at parts of the map farther away so that our agent won't get trapped between bombs and walls.
-
-### generate_bomb_safe_dijkstra
-This map sets every game tile that isn't in the explosion radius of a bomb as a goal. This gives our agent a notion of the tiles that are safe to walk on.
-
-### generate_bomb_safe_dijkstra_high_timer
-
-Similar to the previous function, this map only sets tiles to be safe if they're outside the explosion radius of a bomb that is close to exploding. This will allow our agent to avoid being in the explosion of a bomb that is close to expiring. 
-
-This map is calculated after the goal Dijkstra map is created. This is to account for the fact that explosions last a tick after the bomb explodes.
-
-### generate_ammo_dijkstra
-
-This map places goals at the locations of ammo and treasure pickups. Ammo is weighted slightly higher than treasure.
-
-### generate_treasure_dijkstra
-
-Similar to the ammo map, this map only places goals on treasure drops.
-
-### generate_enemy_flee_dijkstra
-This map places goals in a square ranging from (3,3) to (8,6). This is used in the late game to keep our agent near the center of the map.
-
-### generate_run_dijkstra
-This map works the same was as our bomb flee map, but flees from the opponent agent.
-
-## Bomb check logic
-Before placing a bomb, our agent checks whether any of the following conditions fail:
-
-1. The agent will receive points if it were to place a bomb, or it will damage an ore block
-2. There is a path to a safe tile 
